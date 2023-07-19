@@ -1,12 +1,12 @@
 package com.example.ex2;
 
-import org.springframework.stereotype.Component;
+
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-@Component
+
 public class RepositoryImplementation implements TaskManagerRepository {
 
     Scanner scanner = new Scanner(System.in);
@@ -52,12 +52,9 @@ public class RepositoryImplementation implements TaskManagerRepository {
         try (Connection connection = DriverManager.getConnection(url)) {
 
             PreparedStatement createUser = connection.prepareStatement("INSERT INTO user VALUES (?,?,?)");
-            System.out.println("Enter first name: ");
-            createUser.setString(1, user.firstName = scanner.nextLine());
-            System.out.println("Enter last name: ");
-            createUser.setString(2, user.lastName = scanner.nextLine());
-            System.out.println("Enter user name: ");
-            createUser.setString(3, user.userName = scanner.nextLine());
+            createUser.setString(1, user.getFirstName());
+            createUser.setString(2, user.getLastName());
+            createUser.setString(3, user.getUserName());
 
             createUser.executeUpdate();
             createUser.close();
@@ -72,12 +69,10 @@ public class RepositoryImplementation implements TaskManagerRepository {
             User user = new User();
 
             PreparedStatement createTask = connection.prepareStatement("INSERT INTO task VALUES(?,?,?)");
-            System.out.println("Enter user name: ");
-            createTask.setString(1, user.userName = scanner.nextLine());
-            System.out.println("Enter task title: ");
-            createTask.setString(2, scanner.nextLine());
-            System.out.println("Enter description: ");
-            createTask.setString(3, scanner.nextLine());
+
+            createTask.setString(1, user.getUserName());
+            createTask.setString(2, user.getTasktitle());
+            createTask.setString(3, user.getDescription());
 
             createTask.executeUpdate();
         }

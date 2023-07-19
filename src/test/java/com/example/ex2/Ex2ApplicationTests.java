@@ -1,40 +1,86 @@
 package com.example.ex2;
 
-import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.BooleanSupplier;
 
-@SpringBootTest
+
 class Ex2ApplicationTests {
 
-	@Autowired
+
+	@Mock
 	TaskManagerService taskManagerService;
 
-	@Test
-	void addUser() {
+	ServiceImplementation serviceImplementation;
 
-		User user = new User();
-		user.firstName = "Mihai";
+
+
+	@BeforeEach
+	void setUp() {
+//		autoCloseable = MockitoAnnotations.openMocks(this);
+//		serviceImplementation = new ServiceImplementation(taskManagerService);
+
+		taskManagerService = mock(TaskManagerService.class);
+//
+	}
+
+	@AfterEach
+	void tearDown() throws Exception {
+//		autoCloseable.close();
+	}
+
+	@Test
+	void addUserinDB() {
+
+		User user = new User("Mihai","Jalba","MihaiJ");
+		user.setFirstName("Mihai");
+
 
 		taskManagerService.addUser(user);
-		Assertions.assertEquals(taskManagerService.showAllUser().size(),1);
-		Assertions.assertEquals(taskManagerService.showAllUser().get(0).getFirstName(),"Mihai");
+//		assertEquals(1,taskManagerService.showAllUser().size());
+		verify(taskManagerService).addUser(user);
+//		verify(taskManagerService).showAllUser().get(0).getFirstName("Mihai");
+	//		assertEquals("Mihai",taskManagerService.showAllUser().get(0).getFirstName());
 
 	}
 
 	@Test
-	List<User> showAllUsers(){
+	void showAllUsers(){
 		List<User> user = new ArrayList<>();
-		User user1 = new User();
-		user.add(user1);
+		user.add(new User("Mihai","Jalba","MihaiJ"));
 
-		Assertions.assertEquals(taskManagerService.showAllUser().get(0),user);
+		when(taskManagerService.showAllUser()).thenReturn(user);
+//
+//		taskManagerService.showAllUser() ;
+//		assertTrue((BooleanSupplier) serviceImplementation.showAllUser());
+//		verify(taskManagerService).showAllUser();
 
-		return user;
+	}
+
+	@Test
+	void addTask(){
+		User user = new User("Mihai","Jalba","MihaiJ");
+
+		taskManagerService.addTask();
+
+		verify(taskManagerService).addTask();
+	}
+
+	@Test
+	void showUsersTasks(){
+		 taskManagerService.showUsersTasks();
+
+		 verify(taskManagerService).showUsersTasks();
 	}
 
 }

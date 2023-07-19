@@ -17,6 +17,6 @@ public interface TaskManagerRepository {
     List<User> showAllUsers() throws SQLException;
 
     void showUsersTasks() throws SQLException;
-    
+
 
 }

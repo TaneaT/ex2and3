@@ -2,13 +2,50 @@ package com.example.ex2;
 
 public class User {
 
-    String firstName;
+    private String firstName;
 
-    String lastName;
+    private String lastName;
 
-    String userName;
+    private String userName;
 
-    Integer numberOfTasks;
+    private Integer numberOfTasks;
+
+    private String tasktitle;
+
+    private String description;
+
+    public User(String firstName, String lastName, String userName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.userName = userName;
+    }
+
+    public User(String firstName, String lastName, Integer numberOfTasks) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.numberOfTasks = numberOfTasks;
+    }
+
+    public void setNumberOfTasks(Integer numberOfTasks) {
+        this.numberOfTasks = numberOfTasks;
+    }
+
+    public String getTasktitle() {
+        return tasktitle;
+    }
+
+    public void setTasktitle(String tasktitle) {
+        this.tasktitle = tasktitle;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -33,17 +70,7 @@ public class User {
         this.userName = userName;
     }
 
-    public User(String firstName, String lastName, String userName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.userName = userName;
-    }
 
-    public User(String firstName, String lastName, Integer numberOfTasks) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.numberOfTasks = numberOfTasks;
-    }
 
     public User() {
     }

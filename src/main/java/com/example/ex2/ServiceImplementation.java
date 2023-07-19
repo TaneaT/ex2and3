@@ -1,15 +1,24 @@
 package com.example.ex2;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
+
+import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-@Component
+import java.util.Scanner;
+
+
 public class ServiceImplementation implements TaskManagerService{
-@Autowired
+
+    Scanner scanner = new Scanner(System.in);
+
     TaskManagerRepository taskManagerRepository;
+
+    public ServiceImplementation(TaskManagerRepository taskManagerRepository) {
+        this.taskManagerRepository = taskManagerRepository;
+    }
+
     @Override
     public void createTableUser() {
         try{
@@ -34,8 +43,14 @@ public class ServiceImplementation implements TaskManagerService{
     public void addUser(User user) {
 
         try{
-
+            System.out.println("Enter first name: ");
+            user.setFirstName(scanner.nextLine());
+            System.out.println("Enter last name: ");
+            user.setLastName(scanner.nextLine());
+            System.out.println("Enter user name: ");
+            user.setUserName(scanner.nextLine());
             taskManagerRepository.createUser(user);
+
         } catch (SQLException e){
             System.out.println(e.getMessage());
         }
@@ -45,6 +60,13 @@ public class ServiceImplementation implements TaskManagerService{
     @Override
     public void addTask() {
         try{
+            User user = new User();
+            System.out.println("Enter user name: ");
+            user.setUserName(scanner.nextLine());
+            System.out.println("Enter task title: ");
+            user.setTasktitle(scanner.nextLine());
+            System.out.println("Enter description: ");
+            user.setDescription(scanner.nextLine());
             taskManagerRepository.createTask();
         } catch (SQLException e){
             System.out.println(e.getMessage());
